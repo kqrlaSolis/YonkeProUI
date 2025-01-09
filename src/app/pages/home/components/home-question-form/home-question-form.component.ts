@@ -30,12 +30,16 @@ export class HomeQuestionFormComponent {
     carEngine: new FormControl("", [Validators.required]),
     pieceName: new FormControl("", [Validators.required]),
     cities: new FormControl<any>([]),
+    file: new FormControl<File | null>(null)
   })
+
+
   onFileSelected(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const file = inputElement.files[0];
       this.fileName = file.name;
+      this.questionForm.controls['file'].setValue(file);
       console.log('Archivo seleccionado:', file);
     }
   }
@@ -57,35 +61,25 @@ export class HomeQuestionFormComponent {
     if (isSelected) return;
     console.log(isSelected)
     this.selectedCities().push(para.value)
-    // this.selectedCities.update((val)=> {
-    //   return [
-    //     ...val,
-    //     para.value
-
-    
-    //   ]
-    // })
 
     this.questionForm.patchValue({
       cities: this.selectedCities()
     })
   }
-
   public removeCity(city: string) {
     const newCities = this.selectedCities().filter((a)=>a!=city)
-    this.selectedCities.set(newCities);
-                 
+    this.selectedCities.set(newCities); 
   }
 
-  
-
   public async onSubmit() {
-    console.log(this.questionForm.value)
+    // console.log(this.questionForm.value)
+
+    const formData = this.questionForm.value
+    localStorage.setItem("questionFormData", JSON.stringify(formData));
+      // console.log("Datos guardados en Local Storage:", formData);
     const response = await this.questionService.sendQuestion(this.questionForm.value)
-    console.log(response)
+    console.log(response) //yonkes nearby i think so
 
     this.router.navigate(['/confirmation']);
   }
-
-  
 }
