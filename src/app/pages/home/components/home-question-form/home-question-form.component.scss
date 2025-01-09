@@ -1,0 +1,109 @@
+:host::ng-deep .mdc-notched-outline__notch {
+  border-right: 0;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 2px dashed #b8a76e;
+  padding: 40px;
+  padding-right: 60px;
+  padding-left: 60px;
+  border-radius: 10px;
+  cursor: pointer;
+  max-width: 300px;
+  margin: 3px 0 2rem;
+}
+
+.upload-container:hover {
+  background-color: #f9f8f4;
+}
+
+.upload-label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: #b8a76e;
+}
+
+.highlight {
+  color: #b8a76e;
+  font-weight: bold;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-name {
+  margin-top: 10px;
+  color: #555;
+}
+
+.cola {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #a19249;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  max-width: 56rem;
+}
+
+@media (min-width: 768px) {
+  .cola {
+    font-size: 3.5rem;
+    margin: 0;
+  }
+  .come {
+    font-size: 4rem;
+    margin: 0;
+  }
+}
+
+.come {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: .5rem;
+  width: 100%;
+  max-width: 56rem;
+}
+
+/* Contenedor principal */
+.phone-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Texto superior */
+.text-message {
+  font-size: 1.25rem;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Ajustes al campo de entrada */
+.phone-input {
+  width: 100%;
+}
+
+.mat-icon {
+  color: #1f333d;
+  font-size: 1.5rem;
+}
+
+p {
+  margin-top: 3rem;
+  font-size: 1.10rem;
+}
