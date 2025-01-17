@@ -1,20 +1,12 @@
-import { Component } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
-import { YonkeItemDetailComponent } from "../yonke-item-detail/yonke-item-detail.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { QuestionStore } from '../../../../core/store/questionStore';
 
 @Component({
   selector: 'app-question-details',
-  imports: [MatCardModule, YonkeItemDetailComponent],
+  imports: [],
   templateUrl: './question-details.component.html',
   styleUrl: './question-details.component.scss'
 })
 export class QuestionDetailsComponent {
-
+  public questionStore = inject(QuestionStore);
 }
-
-  
-
-
-
-
-

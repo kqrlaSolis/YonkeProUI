@@ -9,6 +9,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import { Router } from '@angular/router'; 
+import { QuestionStore } from '../../../../core/store/questionStore';
 
 @Component({
   selector: 'app-home-question-form',
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
 })
 
 export class HomeQuestionFormComponent {
+  private questionStore = inject(QuestionStore);
   fileName: string | null = null;
   
   public router = inject(Router);
@@ -56,10 +58,10 @@ export class HomeQuestionFormComponent {
   public selectedCities = signal<any[]>([]);
 
   public onSelectCity(para:any){
-    console.log(para)
+    // console.log(para)
     const isSelected = this.selectedCities().includes(para.value)
     if (isSelected) return;
-    console.log(isSelected)
+    // console.log(isSelected)
     this.selectedCities().push(para.value)
 
     this.questionForm.patchValue({
@@ -72,14 +74,15 @@ export class HomeQuestionFormComponent {
   }
 
   public async onSubmit() {
-    // console.log(this.questionForm.value)
-
-    const formData = this.questionForm.value
-    localStorage.setItem("questionFormData", JSON.stringify(formData));
-      // console.log("Datos guardados en Local Storage:", formData);
-    const response = await this.questionService.sendQuestion(this.questionForm.value)
-    console.log(response) //yonkes nearby i think so
-
-    this.router.navigate(['/confirmation']);
+    //asigna el valor de los campos del formulario a la constante formData
+    const formData = this.questionForm.value;
+    //se asigna el valor de formData a la constante questions que proviene de questionStore
+    this.questionStore.setQuestions(formData)
+    //se envia el formulario a la API. sendQuestion es un metodo de questionService
+    const response = await this.questionService.sendQuestion(formData)
+    //se asigna el valor de response a la constante yonkes que proviene de questionStore
+    this.questionStore.setYonkes(response);
+    this.router.navigate(['/confirmation']
+    );
   }
 }

@@ -1,8 +1,14 @@
+<h1 class="text-2xl font-bold">
+  Yonkes <span class="highlight">Nearby</span>
+</h1>
+
+@for(yonke of questionStore.getYonkes(); track yonke){
+
 <div class="flex items-center p-4 bg-white shadow-sm rounded-sm">
     <div class="w-20 h-20 bg-gray-200 rounded-sm flex-shrink-0"></div>
     <div class="ml-4 flex-1">
       <p class="text-xs text-gray-500 uppercase font-medium">Closest</p>
-      <h2 class="font-bold text-lg text-gray-700">Yonke Tijuana</h2>
+      <h2 class="font-bold text-lg text-gray-700">{{yonke.name}}</h2>
       <p class="text-sm text-gray-500">1777 West Street, Virginia Beach, VA 23451</p>
     </div>
     <div class="flex items-center space-x-2">
@@ -11,3 +17,4 @@
       </button>
     </div>
   </div>
+}

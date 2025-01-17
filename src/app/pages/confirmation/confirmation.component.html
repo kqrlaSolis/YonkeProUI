@@ -1,1 +1,27 @@
-<app-question-details/>
+<div class="min-h-screen p-4">
+  <!-- Header -->
+  <div class="max-w-lg mx-auto">
+    <div class="text-sm text-gray-600 mb-2">
+      <a (click)="onSubmit()"
+        class="hover:underline hover:cursor-default text-lg font-bold"
+        >&lt; Home</a
+      >
+    </div>
+   
+    <div class="max-w-lg mx-auto mt-6 space-y-6 pb-4">
+      <app-yonke-item-detail />
+    </div>
+    <app-question-details />
+
+
+
+    <div class="max-w-sm mx-auto mt-10">
+      <button
+      (click)="onSubmit()"
+        class="w-full text-white py-3 rounded-lg hover:bg-olive-700"
+        style="background-color: #8d843a">
+        Make another question
+      </button>
+    </div>
+  </div>
+</div>

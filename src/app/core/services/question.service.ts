@@ -11,7 +11,7 @@ export class QuestionService {
   private url = `${environment.base_url}/question`
 
 
-  public sendQuestion(data: any) {
+  public sendQuestion(data: any) :Promise<any> {
     const request = firstValueFrom(this.http.post(this.url, data))
     return request;
   }

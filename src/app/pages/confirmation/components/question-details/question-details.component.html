@@ -1,40 +1,22 @@
-<div class="min-h-screen p-4">
-  <!-- Header -->
-  <div class="max-w-lg mx-auto">
-    <div class="text-sm text-gray-600 mb-2">
-      <a routerLink="/" class="hover:underline hover:cursor-default text-lg font-bold"
-        >&lt; Home</a
-      >
-    </div>
-    <h1 class="text-2xl font-bold">
-      Question <span class="highlight">Details</span>
-    </h1>
+<h1 class="text-2xl font-bold">
+  Question <span class="highlight">Details</span>
+</h1>
 
-    <!-- Product Info -->
-    <div class="flex items-start mt-4 p-4 bg-white shadow-sm rounded-sm">
-      <div class="w-20 h-20 bg-gray-200 rounded-sm flex-shrink-0"></div>
-      <div class="ml-4">
-        <p class="font-bold text-gray-700">Product name</p>
-        <p class="text-sm text-gray-500">Info details info details <br> info details info details</p>
-      </div>
-      <div class="ml-auto">
-        <p class="font-bold text-gray-500">Brand - Year</p>
-      </div>
-    </div>
+@for(question of questionStore.getQuestions(); track question){
+<div class="flex items-start mt-4 p-4 bg-white shadow-sm rounded-sm">
+  <div class="w-20 h-20 bg-gray-200 rounded-sm flex-shrink-0"></div>
+  <div class="ml-4">
+    <p class="font-bold text-gray-700">{{ question.pieceName }}</p>
+    <p class="text-sm text-gray-500">
+      {{ question.name }} <br />{{ question.phone }} <br />{{
+        question.carEngine
+      }}
+    </p>
   </div>
-  <div class="max-w-lg h-px  bg-gray-200 my-4 mx-auto"></div>
-
-  <!-- Cards -->
-  <div class="max-w-lg mx-auto mt-6 space-y-6">
-    <app-yonke-item-detail/>
-  </div>
-
-  <!-- Footer Button -->
-  <div class="max-w-sm mx-auto mt-10">
-    <button
-      class="w-full text-white py-3 rounded-lg  hover:bg-olive-700" style="background-color: #8d843a;"
-    >
-      Make another question
-    </button>
+  <div class="ml-auto">
+    <p class="font-bold text-gray-500">
+      {{ question.carBrand }} - {{ question.carModelYear }}
+    </p>
   </div>
 </div>
+}
