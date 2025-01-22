@@ -1,8 +1,19 @@
+<div class="flex justify-between">
 <h1 class="text-2xl font-bold">
   Question <span class="highlight">Details</span>
-</h1>
 
-@for(question of questionStore.getQuestions(); track question){
+
+</h1>
+<button (click)="deleteAllQuestions()"
+type="button"
+class="text-white bg-blue-950 hover:bg-blue-950 focus:outline-none font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center "
+>Empty <mat-icon class="ml-2" aria-hidden="false" fontIcon="delete"></mat-icon>
+</button>
+
+
+</div>
+
+@for(question of questions; track question){
 <div class="flex items-start mt-4 p-4 bg-white shadow-sm rounded-sm">
   <div class="w-20 h-20 bg-gray-200 rounded-sm flex-shrink-0"></div>
   <div class="ml-4">

@@ -22,14 +22,26 @@ const initialState: QuestionState = {
 export const QuestionStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withComputed((store) => ({
-    getYonkes: computed(() => store.yonkes()),
+  withComputed(({questions, yonkes}) => ({
+    getYonkes: computed(() => yonkes()),
     getQuestions: computed(() => {
-      const recentQuestions = localStorage.getItem('questionFormData');
-      if (!recentQuestions) return [];
-      const decodeQuestions: any[] = JSON.parse(recentQuestions);
-      return decodeQuestions;
+
+
+      if(questions().length === 0) {
+
+        const recentQuestions = localStorage.getItem('questionFormData');
+        
+        if (!recentQuestions) return [];
+        
+        const decodeQuestions: any[] = JSON.parse(recentQuestions);
+        
+        return decodeQuestions;
+      }else{
+        return questions();
+      }
+
     }),
+    
   })),
   withMethods((store) => ({
     setYonkes(newYonkes: any[]) {
@@ -37,6 +49,7 @@ export const QuestionStore = signalStore(
     },
     setQuestions(questions: any) {
       const recentQuestions = localStorage.getItem('questionFormData');
+      
       let newQuestions = [];
 
       if (recentQuestions) {
@@ -45,8 +58,13 @@ export const QuestionStore = signalStore(
       } else {
         newQuestions.push(questions);
       }
+      console.log(newQuestions);
       localStorage.setItem('questionFormData', JSON.stringify(newQuestions));
       patchState(store, { questions: newQuestions });
     },
+    deleteAllQuestions() {
+      localStorage.removeItem('questionFormData');
+      patchState(store, { questions: [] });
+    }
   }))
 );

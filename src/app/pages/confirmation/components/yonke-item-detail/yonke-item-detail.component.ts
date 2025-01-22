@@ -10,4 +10,12 @@ import { QuestionStore } from '../../../../core/store/questionStore';
 })
 export class YonkeItemDetailComponent {
   public questionStore = inject(QuestionStore);
+
+  // latitude: number = this.questionStore.getYonkes()[0].latitude;
+  // longitude: number = this.questionStore.getYonkes()[0].longitude;
+  
+  getGoogleMapsUrl(latitude: string, longitude: string): string {
+    // return `https://www.google.com/maps?q=${latitude},${longitude}`;
+    return `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+  }  
 }

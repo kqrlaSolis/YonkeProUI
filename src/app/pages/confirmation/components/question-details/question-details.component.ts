@@ -1,12 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { QuestionStore } from '../../../../core/store/questionStore';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-question-details',
-  imports: [],
+  imports: [MatIcon],
   templateUrl: './question-details.component.html',
   styleUrl: './question-details.component.scss'
 })
-export class QuestionDetailsComponent {
+export class QuestionDetailsComponent implements OnInit {
   public questionStore = inject(QuestionStore);
+
+  public questions: any[] = []
+
+  constructor() {}
+
+  ngOnInit() {
+    const questions = this.questionStore.getQuestions();
+    console.log(questions);
+    this.questions = questions;
+  }
+
+
+  deleteAllQuestions() {
+    this.questionStore.deleteAllQuestions();
+    this.questions = [];
+  }
+
 }
