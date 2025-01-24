@@ -25,12 +25,12 @@ export class HomeQuestionFormComponent {
   public router = inject(Router);
   public questionService = inject(QuestionService)
   public questionForm = new FormGroup({
-    name: new FormControl("testa", [Validators.required, Validators.minLength(5)]),
-    phone: new FormControl("tetaa", [Validators.required]),
-    carModelYear: new FormControl("asdasdas",[Validators.required]),
-    carBrand: new FormControl("asdasa", [Validators.required]),
-    carEngine: new FormControl("adasda", [Validators.required]),
-    pieceName: new FormControl("asdasdasdasdsadasd", [Validators.required]),
+    name: new FormControl("", [Validators.required, Validators.minLength(5)]),
+    phone: new FormControl("", [Validators.required]),
+    carModelYear: new FormControl("",[Validators.required]),
+    carBrand: new FormControl("", [Validators.required]),
+    carEngine: new FormControl("", [Validators.required]),
+    pieceName: new FormControl("", [Validators.required]),
     cities: new FormControl<any>([]),
     file: new FormControl<File | null>(null)
   })
