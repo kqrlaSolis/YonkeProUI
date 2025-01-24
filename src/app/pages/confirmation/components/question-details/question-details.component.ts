@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { QuestionStore } from '../../../../core/store/questionStore';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-question-details',
-  imports: [MatIcon],
+  imports: [],
   templateUrl: './question-details.component.html',
   styleUrl: './question-details.component.scss'
 })
