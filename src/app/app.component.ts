@@ -3,7 +3,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-init',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -11,3 +11,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'yonke-ui';
 }
+
+

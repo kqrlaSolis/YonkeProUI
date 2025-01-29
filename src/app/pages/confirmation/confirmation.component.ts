@@ -14,9 +14,8 @@ import { YonkeItemDetailComponent } from './components/yonke-item-detail/yonke-i
 })
 export class ConfirmationComponent {
   public router = inject(Router);
- public questionStore =  inject(QuestionStore);
 
- public async onSubmit() {
+ public returnHome() {
   this.router.navigate(['/home']);
  }
 }

@@ -24,13 +24,13 @@ export const QuestionStore = signalStore(
   withState(initialState),
   withComputed(({questions, yonkes}) => ({
     getYonkes: computed(() => yonkes()),
+    // getYonkesLength: computed(() => yonkes().length),
     getQuestions: computed(() => {
 
 
       if(questions().length === 0) {
 
         const recentQuestions = localStorage.getItem('questionFormData');
-        
         if (!recentQuestions) return [];
         
         const decodeQuestions: any[] = JSON.parse(recentQuestions);

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { QuestionStore } from '../../../../core/store/questionStore';
 
 @Component({
-  selector: 'app-home-question-form',
+  selector: 'app-home-question-form', 
   imports: [MatInputModule, ReactiveFormsModule, MatSelectModule, MatButtonModule, MatChipsModule, CommonModule, MatIconModule],
   templateUrl: './home-question-form.component.html',
   styleUrl: './home-question-form.component.scss'
@@ -20,31 +20,33 @@ import { QuestionStore } from '../../../../core/store/questionStore';
 
 export class HomeQuestionFormComponent {
   private questionStore = inject(QuestionStore);
-  fileName: string | null = null;
+
+  // fileName: string | null = null;
   
   public router = inject(Router);
   public questionService = inject(QuestionService)
   public questionForm = new FormGroup({
     name: new FormControl("", [Validators.required, Validators.minLength(5)]),
-    phone: new FormControl("", [Validators.required]),
+    phone: new FormControl("", [Validators.required, Validators.minLength(10),Validators.maxLength(10), Validators.pattern(/^[0-9]*$/)]),
     carModelYear: new FormControl("",[Validators.required]),
     carBrand: new FormControl("", [Validators.required]),
     carEngine: new FormControl("", [Validators.required]),
     pieceName: new FormControl("", [Validators.required]),
     cities: new FormControl<any>([]),
-    file: new FormControl<File | null>(null)
   })
 
 
-  onFileSelected(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      const file = inputElement.files[0];
-      this.fileName = file.name;
-      this.questionForm.controls['file'].setValue(file);
-      console.log('Archivo seleccionado:', file);
-    }
-  }
+  // onFileSelected(event: Event): void {
+  //   const inputElement = event.target as HTMLInputElement;
+  //   if (inputElement.files && inputElement.files.length > 0) {
+  //     const file = inputElement.files[0];
+  //     this.fileName = file.name;
+  //     this.questionForm.controls['file'].setValue(file);
+  //     console.log('Archivo seleccionado:', file);
+  //   }
+  // }
+
+  
 
   public cities = [
     { name: "Ensenada" },

@@ -12,8 +12,6 @@ export class QuestionDetailsComponent implements OnInit {
 
   public questions: any[] = []
 
-  constructor() {}
-
   ngOnInit() {
     const questions = this.questionStore.getQuestions();
     console.log(questions);
