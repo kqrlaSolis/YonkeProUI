@@ -1,27 +1,24 @@
-<div class="min-h-screen p-4">
+<div class="p-4">
   <!-- Header -->
   <div class="max-w-lg mx-auto">
-    <div class="text-sm text-gray-600 mb-2">
-      <a (click)="returnHome()"
+    <div class="text-sm text-slate-100 mb-2">
+      <a
+        (click)="returnHome()"
         class="hover:underline hover:cursor-default text-lg font-bold"
         >&lt; Home</a
       >
     </div>
-   
-    <div class="max-w-lg mx-auto mt-6 space-y-6 pb-4">
-      <app-yonke-item-detail />
-    </div>
-    <app-question-details />
+  </div>
 
-
-
-    <div class="max-w-sm mx-auto mt-10">
-      <button
+  <app-yonke-item-detail />
+  <app-question-details />
+  <div class="w-full mt-10">
+    <button
       (click)="returnHome()"
-        class="w-full text-white py-3 rounded-lg hover:bg-olive-700"
-        style="background-color: #8d843a">
-        Make another question
-      </button>
-    </div>
+      class="w-full text-white py-3 rounded-lg hover:bg-olive-700"
+      style="background-color: #8d843a"
+    >
+      Haz otra pregunta
+    </button>
   </div>
 </div>

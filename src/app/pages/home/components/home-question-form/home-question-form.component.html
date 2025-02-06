@@ -1,102 +1,95 @@
-<div class="h-screen flex flex-col justify-center items-center">
-  <div class="flex flex-col justify-center text-center">
-    <p class="come">What piece are</p>
-    <p class="cola">you looking for ?</p>
-  </div>
-  
-  <form [formGroup]="questionForm" class="flex flex-col w-full">
+<form [formGroup]="questionForm" class="flex flex-col w-full pt-4">
+  <mat-form-field appearance="outline">
+    <mat-label>Pieza</mat-label>
+    <input matInput formControlName="pieceName" />
+  </mat-form-field>
+
+  <div class="flex flex-row justify-between items-center gap-4">
     <mat-form-field appearance="outline">
-      <mat-label>Pieza</mat-label>
-      <input matInput formControlName="pieceName" />
-    </mat-form-field>
-  
-    <div class="flex flex-row justify-between items-center gap-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Ciudad</mat-label>
-        <mat-select (selectionChange)="onSelectCity($event)">
-          @for (city of cities; track city) {
-          <mat-option [value]="city.name">{{ city.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-  
-      @if (selectedCities().length>0) {
-      <mat-chip-set class="flex justify-end content-around" #chipGrid>
-        @for (city of selectedCities(); track city) {
-        <mat-chip-row class="rounded-full" (removed)="removeCity(city)">
-          {{ city }}
-          <button matChipRemove aria-label="'remove ' + keyword">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+      <mat-label>Ciudad</mat-label>
+      <mat-select (selectionChange)="onSelectCity($event)">
+        @for (city of cities; track city) {
+        <mat-option [value]="city.name">{{ city.name }}</mat-option>
         }
-      </mat-chip-set>
+      </mat-select>
+    </mat-form-field>
+
+    @if (selectedCities().length>0) {
+    <mat-chip-set class="flex justify-end content-around" #chipGrid>
+      @for (city of selectedCities(); track city) {
+      <mat-chip-row class="rounded-full" (removed)="removeCity(city)">
+        {{ city }}
+        <button matChipRemove aria-label="'remove ' + keyword">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
       }
-    </div>
-  
-    <mat-form-field appearance="outline">
-      <mat-label>Marca del auto</mat-label>
-      <input matInput formControlName="carBrand" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Modelo/ Año </mat-label>
-      <input matInput formControlName="carModelYear" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Motor</mat-label>
-      <input matInput formControlName="carEngine" />
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline">
-      <mat-label>Nombre Completo</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
-  
-    <!-- UPLOAD upload-container -->
-  
-  
-    <!-- <div class="flex flex-row gap-20">
-      <div class="upload-container">
-        <label for="fileInput" class="upload-label">
-          <span class="material-symbols-outlined upload-icon">upload</span>
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-          class="file-input"
-        />
-        <div *ngIf="fileName" class="file-name">
-          File selected: {{ fileName }}
-        </div>
+    </mat-chip-set>
+    }
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Marca del auto</mat-label>
+    <input matInput formControlName="carBrand" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Modelo/ Año </mat-label>
+    <input matInput formControlName="carModelYear" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Motor</mat-label>
+    <input matInput formControlName="carEngine" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre Completo</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <!-- UPLOAD upload-container -->
+
+  <!-- <div class="flex flex-row gap-20">
+    <div class="upload-container">
+      <label for="fileInput" class="upload-label">
+        <span class="material-symbols-outlined upload-icon">upload</span>
+      </label>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="file-input"
+      />
+      <div *ngIf="fileName" class="file-name">
+        File selected: {{ fileName }}
       </div>
-      <p class="">
-        Upload a <span class="highlight">picture</span> of your piece so we can
-        help
-      </p>
     </div>
-     -->
-  
-    <div class="phone-input-container">
-      <p class="text-message mt-0">
-        Leave a number so we can <span class="highlight">get in touch</span>
-      </p>
-  
-      <mat-form-field appearance="outline" class="phone-input">
-        <mat-label>Número de Teléfono</mat-label>
-        <input matInput type="tel" pattern="[0-9]*" formControlName="phone" />
-      </mat-form-field>
-  
-    </div>
-  
-    <button
-      [disabled]="!questionForm.valid || selectedCities().length <= 0"
-      mat-flat-button
-      (click)="onSubmit()"
-    >
-      Buscar
-    </button>
-  </form>
-  
-</div>
+    <p class="">
+      Upload a <span class="highlight">picture</span> of your piece so we can
+      help
+    </p>
+  </div>
+   -->
+
+  <div class="phone-input-container">
+    <p class="text-message mt-0">
+      Deja un número para que podamos
+      <span class="highlight">ponernos en contacto</span>
+    </p>
+
+    <mat-form-field appearance="outline" class="phone-input">
+      <mat-label>Número de Teléfono</mat-label>
+      <input matInput type="tel" pattern="[0-9]*" formControlName="phone" />
+    </mat-form-field>
+  </div>
+
+  <button
+    class="mb-2"
+    [disabled]="!questionForm.valid || selectedCities().length <= 0"
+    mat-flat-button
+    
+    (click)="onSubmit()"
+  >
+    Buscar
+  </button>
+</form>
