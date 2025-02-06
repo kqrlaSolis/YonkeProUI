@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,11 +27,10 @@ import { FormRouteStore } from '../../../../core/store/formStore';
   styleUrl: './home-question-form.component.scss',
 })
 export class HomeQuestionFormComponent {
+
+private citiesSelect = viewChild('citiesSelect', {read: ElementRef});
+
   private questionStore = inject(QuestionStore);
-  private formStore = inject(FormRouteStore);
-
-  // fileName: string | null = null;
-
   public router = inject(Router);
   public questionService = inject(QuestionService);
   public questionForm = new FormGroup({
@@ -42,35 +41,12 @@ export class HomeQuestionFormComponent {
       Validators.maxLength(10),
       Validators.pattern(/^[0-9]*$/),
     ]),
-    carModelYear: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
-    carBrand: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-    ]),
-    carEngine: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-    ]),
-    pieceName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-    ]),
-    cities: new FormControl<any>([], [Validators.required]),
+    carModelYear: new FormControl('', [Validators.required]),
+    carBrand: new FormControl('', [Validators.required]),
+    carEngine: new FormControl('', [Validators.required]),
+    pieceName: new FormControl('', [Validators.required]),
+    cities: new FormControl<any>([]),
   });
-
-  // onFileSelected(event: Event): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     const file = inputElement.files[0];
-  //     this.fileName = file.name;
-  //     this.questionForm.controls['file'].setValue(file);
-  //     console.log('Archivo seleccionado:', file);
-  //   }
-  // }
-
   public cities = [
     { name: 'Ensenada' },
     { name: 'Mexicali' },
@@ -82,32 +58,39 @@ export class HomeQuestionFormComponent {
 
   public selectedCities = signal<any[]>([]);
 
-  public onSelectCity(para: any) {
-    // console.log(para)
-    const isSelected = this.selectedCities().includes(para.value);
-    if (isSelected) return;
-    // console.log(isSelected)
-    this.selectedCities().push(para.value);
+  public selectedCitiesText = computed(() => this.selectedCities().join(', '));
 
+  public onSelectionChange(para:any){
+    console.log(this.selectedCities())
+    const citiesSelectElement = this.citiesSelect();
+    const isSelected = this.selectedCities().includes(para.value);
+    if (isSelected) {
+      this.selectedCities.update((cities) => cities.filter((city) => city !== para.value));
+      if (citiesSelectElement) {
+        citiesSelectElement.nativeElement.value = '';
+      }
+      return;
+    };
+    console.log(para.value)
+    this.selectedCities.update((cities) => [...cities, para.value]);
+    console.log(this.selectedCities())
+    if (citiesSelectElement) {
+      citiesSelectElement.nativeElement.value = '';
+    }
     this.questionForm.patchValue({
       cities: this.selectedCities(),
     });
   }
-  public removeCity(city: string) {
-    const newCities = this.selectedCities().filter((a) => a != city);
-    this.selectedCities.set(newCities);
-  }
 
-  public async onSubmit() {
-    //asigna el valor de los campos del formulario a la constante formData
+  public async onSubmitForm() {
     const formData = this.questionForm.value;
-    //se asigna el valor de formData a la constante questions que proviene de questionStore
     this.questionStore.setQuestions(formData);
-    //se envia el formulario a la API. sendQuestion es un metodo de questionService
-    const response = await this.questionService.sendQuestion(formData);
-    //se asigna el valor de response a la constante yonkes que proviene de questionStore
+
+    const response =  await this.questionService.sendQuestion(formData);
     this.questionStore.setYonkes(response);
-    this.formStore.setIsAvailable(true);
+
     this.router.navigate(['/confirmation']);
   }
+
+
 }

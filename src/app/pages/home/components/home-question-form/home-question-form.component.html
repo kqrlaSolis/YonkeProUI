@@ -1,102 +1,113 @@
-<div class="h-screen flex flex-col justify-center items-center">
-  <div class="flex flex-col justify-center text-center">
-    <p class="come">What piece are</p>
-    <p class="cola">you looking for ?</p>
-  </div>
-  
-  <form [formGroup]="questionForm" class="flex flex-col w-full">
-    <mat-form-field appearance="outline">
-      <mat-label>Pieza</mat-label>
-      <input matInput formControlName="pieceName" />
-    </mat-form-field>
-  
-    <div class="flex flex-row justify-between items-center gap-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Ciudad</mat-label>
-        <mat-select (selectionChange)="onSelectCity($event)">
-          @for (city of cities; track city) {
-          <mat-option [value]="city.name">{{ city.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-  
-      @if (selectedCities().length>0) {
-      <mat-chip-set class="flex justify-end content-around" #chipGrid>
-        @for (city of selectedCities(); track city) {
-        <mat-chip-row class="rounded-full" (removed)="removeCity(city)">
-          {{ city }}
-          <button matChipRemove aria-label="'remove ' + keyword">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
-        }
-      </mat-chip-set>
-      }
-    </div>
-  
-    <mat-form-field appearance="outline">
-      <mat-label>Marca del auto</mat-label>
-      <input matInput formControlName="carBrand" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Modelo/ Año </mat-label>
-      <input matInput formControlName="carModelYear" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Motor</mat-label>
-      <input matInput formControlName="carEngine" />
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline">
-      <mat-label>Nombre Completo</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
-  
-    <!-- UPLOAD upload-container -->
-  
-  
-    <!-- <div class="flex flex-row gap-20">
-      <div class="upload-container">
-        <label for="fileInput" class="upload-label">
-          <span class="material-symbols-outlined upload-icon">upload</span>
-        </label>
-        <input
-          type="file"
-          id="fileInput"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-          class="file-input"
-        />
-        <div *ngIf="fileName" class="file-name">
-          File selected: {{ fileName }}
+<section class="bg-bg-primary py-14 h-auto">
+  <form [formGroup]="questionForm">
+    <div class="max-w-screen-lg mx-auto px-4">
+      <!-- MAIN FORM CONTAINER -->
+      <h2 class="text-4xl font-bold mb-10 mt-10 text-center text-[#f5f8fa]">
+        <!-- TITLE -->
+        Busca tu pieza
+      </h2>
+
+      <div class="flex flex-col md:flex-row items-center gap-1">
+        <!-- SEARCH INPUTS -->
+        <div class="relative flex-1">
+          <input
+            formControlName="pieceName"
+            type="text"
+            placeholder="Bomba de Agua"
+            class="pl-10 w-full bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M11 4a7 7 0 015.198 11.799l3.196 
+               3.197a1 1 0 01-1.414 1.414l-3.197-3.196A7 
+               7 0 1111 4z"
+            />
+          </svg>
+        </div>
+
+        <!-- PENDIENTE MULTISELECT -->
+        <div class="flex-1">
+          <select
+            #citiesSelect
+            (change)="onSelectionChange($event.target)"
+            class="w-full bg-input-bg border border-gray-700 rounded py-2.5 px-3 text-black focus:outline-none focus:border-accent"
+          >
+            <option value="" disabled selected>
+              {{
+                selectedCities().length > 0
+                  ? selectedCitiesText()
+                  : "Selecciona ciudades"
+              }}
+            </option>
+            @for (city of cities; track city) {
+
+            <option [value]="city.name">{{ city.name }}</option>
+
+            }
+          </select>
         </div>
       </div>
-      <p class="">
-        Upload a <span class="highlight">picture</span> of your piece so we can
-        help
-      </p>
+
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1">
+        <input
+          formControlName="carBrand"
+          type="text"
+          placeholder="Marca de automóvil"
+          class="bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+        />
+        <input
+          formControlName="carModelYear"
+          type="text"
+          placeholder="Año / Modelo"
+          class="bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+        />
+        <input
+          formControlName="carEngine"
+          type="text"
+          placeholder="Motor"
+          class="bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+        />
+      </div>
+
+      <!-- CONTACTO -->
+      <div class="mt-8">
+        <h3 class="text-xl text-teal-50 font-semibold mb-6 mt-10">
+          Datos de Contacto
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
+          <input
+            formControlName="name"
+            type="text"
+            placeholder="Nombre"
+            class="bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+          />
+          <input
+            formControlName="phone"
+            type="text"
+            placeholder="Número de Teléfono"
+            class="bg-input-bg border border-gray-700 rounded py-2 px-3 placeholder-gray-500 focus:outline-none focus:border-accent"
+          />
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-center items-center">
+        <button
+          [disabled]="!questionForm.valid || selectedCities().length <= 0"
+          (click)="onSubmitForm()"
+          class="w-auto bg-accent text-black font-normal px-24 py-2 rounded hover:bg-accent transition"
+        >
+          Buscar
+        </button>
+      </div>
     </div>
-     -->
-  
-    <div class="phone-input-container">
-      <p class="text-message mt-0">
-        Leave a number so we can <span class="highlight">get in touch</span>
-      </p>
-  
-      <mat-form-field appearance="outline" class="phone-input">
-        <mat-label>Número de Teléfono</mat-label>
-        <input matInput type="tel" pattern="[0-9]*" formControlName="phone" />
-      </mat-form-field>
-  
-    </div>
-  
-    <button
-      [disabled]="!questionForm.valid || selectedCities().length <= 0"
-      mat-flat-button
-      (click)="onSubmit()"
-    >
-      Buscar
-    </button>
   </form>
-  
-</div>
+</section>
