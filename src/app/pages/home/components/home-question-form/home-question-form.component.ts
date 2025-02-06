@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'; 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,72 +19,70 @@ import { QuestionStore } from '../../../../core/store/questionStore';
 })
 
 export class HomeQuestionFormComponent {
+
+private citiesSelect = viewChild('citiesSelect', {read: ElementRef});
+
   private questionStore = inject(QuestionStore);
-
-  // fileName: string | null = null;
-  
   public router = inject(Router);
-  public questionService = inject(QuestionService)
+  public questionService = inject(QuestionService);
   public questionForm = new FormGroup({
-    name: new FormControl("", [Validators.required, Validators.minLength(5)]),
-    phone: new FormControl("", [Validators.required, Validators.minLength(10),Validators.maxLength(10), Validators.pattern(/^[0-9]*$/)]),
-    carModelYear: new FormControl("",[Validators.required]),
-    carBrand: new FormControl("", [Validators.required]),
-    carEngine: new FormControl("", [Validators.required]),
-    pieceName: new FormControl("", [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
+      Validators.pattern(/^[0-9]*$/),
+    ]),
+    carModelYear: new FormControl('', [Validators.required]),
+    carBrand: new FormControl('', [Validators.required]),
+    carEngine: new FormControl('', [Validators.required]),
+    pieceName: new FormControl('', [Validators.required]),
     cities: new FormControl<any>([]),
-  })
-
-
-  // onFileSelected(event: Event): void {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   if (inputElement.files && inputElement.files.length > 0) {
-  //     const file = inputElement.files[0];
-  //     this.fileName = file.name;
-  //     this.questionForm.controls['file'].setValue(file);
-  //     console.log('Archivo seleccionado:', file);
-  //   }
-  // }
-
-  
-
+  });
   public cities = [
-    { name: "Ensenada" },
-    { name: "Mexicali" },
-    { name: "Tecate" },
-    { name: "Tijuana" },
-    { name: "Playas de Rosarito" },
-    { name: "San Quintín" }
-  ]
+    { name: 'Ensenada' },
+    { name: 'Mexicali' },
+    { name: 'Tecate' },
+    { name: 'Tijuana' },
+    { name: 'Playas de Rosarito' },
+    { name: 'San Quintín' },
+  ];
 
   public selectedCities = signal<any[]>([]);
 
-  public onSelectCity(para:any){
-    // console.log(para)
-    const isSelected = this.selectedCities().includes(para.value)
-    if (isSelected) return;
-    // console.log(isSelected)
-    this.selectedCities().push(para.value)
+  public selectedCitiesText = computed(() => this.selectedCities().join(', '));
 
+  public onSelectionChange(para:any){
+    console.log(this.selectedCities())
+    const citiesSelectElement = this.citiesSelect();
+    const isSelected = this.selectedCities().includes(para.value);
+    if (isSelected) {
+      this.selectedCities.update((cities) => cities.filter((city) => city !== para.value));
+      if (citiesSelectElement) {
+        citiesSelectElement.nativeElement.value = '';
+      }
+      return;
+    };
+    console.log(para.value)
+    this.selectedCities.update((cities) => [...cities, para.value]);
+    console.log(this.selectedCities())
+    if (citiesSelectElement) {
+      citiesSelectElement.nativeElement.value = '';
+    }
     this.questionForm.patchValue({
       cities: this.selectedCities()
     })
   }
-  public removeCity(city: string) {
-    const newCities = this.selectedCities().filter((a)=>a!=city)
-    this.selectedCities.set(newCities); 
+
+  public async onSubmitForm() {
+    const formData = this.questionForm.value;
+    this.questionStore.setQuestions(formData);
+
+    const response =  await this.questionService.sendQuestion(formData);
+    this.questionStore.setYonkes(response);
+
+    this.router.navigate(['/confirmation']);
   }
 
-  public async onSubmit() {
-    //asigna el valor de los campos del formulario a la constante formData
-    const formData = this.questionForm.value;
-    //se asigna el valor de formData a la constante questions que proviene de questionStore
-    this.questionStore.setQuestions(formData)
-    //se envia el formulario a la API. sendQuestion es un metodo de questionService
-    const response = await this.questionService.sendQuestion(formData)
-    //se asigna el valor de response a la constante yonkes que proviene de questionStore
-    this.questionStore.setYonkes(response);
-    this.router.navigate(['/confirmation']
-    );
-  }
+
 }
