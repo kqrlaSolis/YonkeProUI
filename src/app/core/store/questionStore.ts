@@ -24,7 +24,6 @@ export const QuestionStore = signalStore(
   withState(initialState),
   withComputed(({questions, yonkes}) => ({
     getYonkes: computed(() => yonkes()),
-    // getYonkesLength: computed(() => yonkes().length),
     getQuestions: computed(() => {
 
 
