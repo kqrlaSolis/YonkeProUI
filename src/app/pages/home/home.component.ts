@@ -13,10 +13,11 @@ import { QuestionStore } from '../../core/store/questionStore';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FooterSectionComponent } from './components/footer-section/footer-section.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavigationBarComponent, HeroSectionComponent,HomeQuestionFormComponent, ReactiveFormsModule, MatInputModule, MatSelectModule],
+  imports: [NavigationBarComponent, HeroSectionComponent,HomeQuestionFormComponent,FooterSectionComponent, ReactiveFormsModule, MatInputModule, MatSelectModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

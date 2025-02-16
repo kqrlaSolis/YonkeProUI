@@ -1,54 +1,85 @@
-<header x-data="{ open: false }" class="bg-[#1a1a1a] text-white shadow-md">
-    <div class="max-w-screen-2xl mx-auto px-4 py-4 flex items-center justify-between">
-      <!-- LOGO -->
-      <div class="text-2xl font-bold text-accent">LOGO</div>
-      
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href="#" class="hover:text-accent transition">Inicio</a>
-        <a href="#" class="hover:text-accent transition">Sobre Nosotros</a>
-        <a href="#" class="hover:text-accent transition">Contactos</a>
-        <a href="#" class="hover:text-accent transition">Aviso de Privacidad</a>
-      </nav>
+<header
+  x-data="{ open: false }"
+  class="fixed top-0 left-0 w-full bg-[#1a1a1a] text-white shadow-md z-50"
+>
+  <div
+    class="max-w-screen-2xl mx-auto px-4 py-4 flex items-center justify-between"
+  >
+    <!-- LOGO -->
+    <div class="text-2xl font-bold text-accent">LOGO</div>
 
-      <div class="flex items-center">
-        <!-- Notification Button (Desktop) -->
-        <button aria-label="notifications" class="p-1 hover:text-accent transition hidden md:block">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M15 17h5l-1.405-1.405C18.55 14.403 18 13.301 18 12V8a6 6 0 10-12 0v4c0 1.301-.55 2.403-1.595 3.195L3 17h5m4 0v1a3 3 0 11-6 0v-1m6 0h-6" />
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center space-x-6">
+      <a href="#" class="hover:text-accent transition">Inicio</a>
+      <a href="#" class="hover:text-accent transition">Sobre Nosotros</a>
+      <a href="#" class="hover:text-accent transition">Contactos</a>
+      <a href="#" class="hover:text-accent transition">Aviso de Privacidad</a>
+    </nav>
+
+    <div class="flex items-center">
+      <!-- Notification Button (Desktop) -->
+      <button
+        aria-label="notifications"
+        class="p-1 hover:text-accent transition hidden md:block"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 17h5l-1.405-1.405C18.55 14.403 18 13.301 18 12V8a6 6 0 10-12 0v4c0 1.301-.55 2.403-1.595 3.195L3 17h5m4 0v1a3 3 0 11-6 0v-1m6 0h-6"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Panel -->
+  <div x-show="open" class="md:hidden">
+    <ul class="flex flex-col space-y-2 px-4 pb-4">
+      <li><a href="#" class="block hover:text-accent transition">Inicio</a></li>
+      <li>
+        <a href="#" class="block hover:text-accent transition"
+          >Sobre Nosotros</a
+        >
+      </li>
+      <li>
+        <a href="#" class="block hover:text-accent transition">Contactos</a>
+      </li>
+      <li>
+        <a href="#" class="block hover:text-accent transition"
+          >Aviso de Privacidad</a
+        >
+      </li>
+      <li>
+        <!-- Notification Button (Mobile) -->
+        <button
+          aria-label="notifications"
+          class="w-full text-left p-1 hover:text-accent transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 inline-block mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405C18.55 14.403 18 13.301 18 12V8a6 6 0 10-12 0v4c0 1.301-.55 2.403-1.595 3.195L3 17h5m4 0v1a3 3 0 11-6 0v-1m6 0h-6"
+            />
           </svg>
+          Notificaciones
         </button>
-      </div>
-    </div>
-    <!-- Mobile Navigation Panel -->
-    <div x-show="open" class="md:hidden">
-      <ul class="flex flex-col space-y-2 px-4 pb-4">
-        <li>
-          <a href="#" class="block hover:text-accent transition">Inicio</a>
-        </li>
-        <li>
-          <a href="#" class="block hover:text-accent transition">Sobre Nosotros</a>
-        </li>
-        <li>
-          <a href="#" class="block hover:text-accent transition">Contactos</a>
-        </li>
-        <li>
-          <a href="#" class="block hover:text-accent transition">Aviso de Privacidad</a>
-        </li>
-        <li>
-          <!-- Notification Button (Mobile) -->
-          <button aria-label="notifications"
-            class="w-full text-left p-1 hover:text-accent transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 17h5l-1.405-1.405C18.55 14.403 18 13.301 18 12V8a6 6 0 10-12 0v4c0 1.301-.55 2.403-1.595 3.195L3 17h5m4 0v1a3 3 0 11-6 0v-1m6 0h-6" />
-            </svg>
-            Notificaciones
-          </button>
-        </li>
-      </ul>
-    </div>
-  </header>
+      </li>
+    </ul>
+  </div>
+</header>

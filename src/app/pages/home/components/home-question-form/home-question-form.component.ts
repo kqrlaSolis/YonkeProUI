@@ -31,6 +31,8 @@ export class HomeQuestionFormComponent {
 private citiesSelect = viewChild('citiesSelect', {read: ElementRef});
 
   private questionStore = inject(QuestionStore);
+  public formRouteStore = inject(FormRouteStore);
+
   public router = inject(Router);
   public questionService = inject(QuestionService);
   public questionForm = new FormGroup({
@@ -84,9 +86,10 @@ private citiesSelect = viewChild('citiesSelect', {read: ElementRef});
 
   public async onSubmitForm() {
     const formData = this.questionForm.value;
-    this.questionStore.setQuestions(formData);
+    this.questionStore.setQuestions(formData); 
 
-    const response =  await this.questionService.sendQuestion(formData);
+    const response =  await this.questionService.sendQuestion(formData); 
+    this.formRouteStore.setIsAvailable(true);
     this.questionStore.setYonkes(response);
 
     this.router.navigate(['/confirmation']);
